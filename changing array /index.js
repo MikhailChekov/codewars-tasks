@@ -12,11 +12,18 @@ const list = (names) => {
     startData = startData.join(', ');
     
     return resultData = `${startData}, ${endData}`;
+
   }else if(names.length === 2){
+
     return `${names[0].name} & ${names[1].name}`;
+
   }else if(names.length === 1){
+
     return names[0].name;
+
   }else{
+    
     return '';
+    
   } 
 }
