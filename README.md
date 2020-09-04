@@ -1,0 +1,1 @@
+Training JavaScript skill with codewars , do simple tasks =)
