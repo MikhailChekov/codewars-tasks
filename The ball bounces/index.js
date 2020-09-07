@@ -14,6 +14,5 @@ function bouncingBall(h,  bounce,  window) {
     //condition   -   if < 1 return -1 
     if(steps == 0) return -1;
   
-
     return steps;
 }
