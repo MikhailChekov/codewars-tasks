@@ -79,4 +79,3 @@ function VigenèreCipher(key, abc) {
   };
 }
 let c = new VigenèreCipher();
-console.log(c.decode('xt\'k o vwixl qzswej!'));
