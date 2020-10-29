@@ -50,5 +50,3 @@ function times(b) {
 function dividedBy(b) {
     return (a => Math.floor(a / b));
 }
-
-console.log(four(plus(nine())));
