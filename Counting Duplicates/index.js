@@ -10,3 +10,5 @@ function duplicateCount(text){
     })
     return dupl;
   }
+
+  console.log(duplicateCount('aabBcde'));
