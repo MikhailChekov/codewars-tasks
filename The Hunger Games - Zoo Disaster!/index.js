@@ -1,7 +1,8 @@
 const whoEatsWho = function (zoo) {
-    let animals = {
+    let result = [zoo];
+    let eatList = {
         antelope: ['grass'],
-        bigfish: ['little-fish'],
+        'big-fish': ['little-fish'],
         bug: ['leaves'],
         chicken: ['bug'],
         cow: ['grass'],
@@ -10,73 +11,55 @@ const whoEatsWho = function (zoo) {
         lion: ['cow', 'antelope'],
         panda: ['leaves'],
         sheep: ['grass'],
-        bear: ['big-fish', 'bug', 'chicken', 'cow', 'leaves', 'sheep']
+        bear: ['big-fish', 'bug', 'chicken','cow', 'leaves', 'sheep']
     }
 
-    function canEat(elem) {
-        return animals[elem];
-    }
+    recursion(zoo.split(','));
 
-    const res = [zoo];
-    let zooCopy = zoo.split(',');
-    res.push(eating(zooCopy));
+    function canEatSiblings(zoo) {
+        for(let i = 0; i < zoo.length; i++){
+            let prev = zoo[i - 1]; let next = zoo[i + 1];
+            let animal = zoo[i];
 
-    function eating(zoo) {
-        let animalInArr = 0;
-        if(zoo.length < 2) return zoo;
-        zoo.forEach(e => {
-            if(animals[e]){
-                animalInArr++;
+            if(next && eatList[animal] || prev && eatList[animal]){
+                if(eatList[animal].includes(next) || eatList[animal].includes(prev)) {
+                    return true;
+                };
             }
-        })
-        if(animalInArr === 1) return zoo;
+        }
+        return false;
+    }
 
-        let eated;
+    function recursion (list){
+        if(list.length === 1 || !canEatSiblings(list)){
+            result = result.concat(list.join(','));
+            return;
+        }
+        let isAteInd = '';
 
-        for (let i = 0; i < zoo.length; i++) {
-            let elem = zoo[i];
-
-            if (canEat(elem)) {
-                const list = animals[elem];
-                let prev, next;
-                if ((i - 1) >= 0) { prev = zoo[i - 1];}
-                if ((i + 1) <= list.length) { next = zoo[i + 1];}
-                if (prev) {
-                    if (list[prev]) {
-                        console.log(1);
-                        eated = (i - 1);
-                        res.push(`${elem} eats ${zoo[eated]}`);
-                        break;
-                    }
+        for(let i = 0; i < list.length; i++){
+            let animal = list[i]; let prev = list[i - 1]; let next = list[i + 1];
+            
+            if(prev && eatList[animal]){
+                if(eatList[animal].includes(prev)) {
+                    isAteInd = i - 1;
+                    result.push(`${animal} eats ${list[isAteInd]}`);
+                    break;
                 }
-                if (next) {
-                    if (list[next]) {
-                        eated = (i + 1);
-                        res.push(`${elem} eats ${zoo[eated]}`);
-                        break;
-                    }
+            }
+            if(next && eatList[animal]){
+                if(eatList[animal].includes(next)) {
+                    isAteInd = i + 1;
+                    result.push(`${animal} eats ${list[isAteInd]}`);
+                    break;
                 }
             }
         }
 
-        zoo = zoo.splice(eated, 1);
-
-        eating(zoo);
+        list.splice(isAteInd, 1);
+        recursion(list);
     }
-
-    return res;
+    return result;
 }
 
-
-var input = "fox,bug,chicken,grass,sheep";
-
-whoEatsWho(input);
-
-// var expected = 	[
-//   "fox,bug,chicken,grass,sheep", 
-//   "chicken eats bug", 
-//   "fox eats chicken", 
-//   "sheep eats grass", 
-//   "fox eats sheep", 
-//   "fox"
-//   ];
+console.log(whoEatsWho('bear,grass,grass,grass,grass,sheep,bug,chicken,little-fish,little-fish,little-fish,little-fish,big-fish,big-fish,big-fish'));
