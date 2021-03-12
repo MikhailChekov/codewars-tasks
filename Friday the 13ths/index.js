@@ -1,15 +1,42 @@
-function generateHashtag (str) {
+function fridayTheThirteenths(start, end) {
+    const years = [];
+    let period = null;
+    let res = '';
 
-    str = str.trim();
-    if(str === '') return false;
-
-    let res  = str.split(' ').map(el => el.trim()).filter(el => el !== '');
-    res = res.map(el => el[0].toUpperCase() + el.slice(1)).join('');
-    res = '#' + res;
-     
-    if(res.length > 140) {
-        return false;
+    if(end > start){
+        period = end - start;
     } else {
-        return res;
+        period = start - end;
     }
+    
+    if(end) {
+        for(let i = 0; i <= period; i++){
+
+            for(let b = 1; b <= 12; b++){
+                const date = `${b}/13/${start}`;
+                const objDate = new Date(date);
+                
+    
+                if(objDate.getDay() === 5){
+                    res += `${date} `;
+                }
+            }
+    
+            start++;
+        }
+    }
+    if(!end) {
+        for(let b = 1; b <= 12; b++){
+            const date = `${b}/13/${start}`;
+            const objDate = new Date(date);
+            
+
+            if(objDate.getDay() === 5){
+                res += `${date} `;
+            }
+        }
+    }
+
+    return res.trim();
+
 }

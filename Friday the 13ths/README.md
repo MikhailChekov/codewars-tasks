@@ -1,13 +1,16 @@
-The marketing team is spending way too much time typing in hashtags.
-Let's help them with our own Hashtag Generator!
+Create the function fridayTheThirteenths that accepts a start year and an end year (inclusive), and returns all of the dates where the 13th of a month lands on a Friday in the given range of year(s).
 
-Here's the deal:
+The return value should be a string where each date is seperated by a space. The date should be formatted like 9/13/2014 where months do not have leading zeroes and are separated with forward slashes.
 
-It must start with a hashtag (#).
-All words must have their first letter capitalized.
-If the final result is longer than 140 chars it must return false.
-If the input or the result is an empty string it must return false.
+If no end year is given, only return friday the thirteenths during the start year.
+
 Examples
-" Hello there thanks for trying my Kata"  =>  "#HelloThereThanksForTryingMyKata"
-"    Hello     World   "                  =>  "#HelloWorld"
-""                                        =>  false
+fridayTheThirteenths(1999, 2000) 
+  // returns "8/13/1999 10/13/2000"
+  
+fridayTheThirteenths(2014, 2015) 
+  // returns "6/13/2014 2/13/2015 3/13/2015 11/13/2015"
+  
+fridayTheThirteenths(2000)
+  // returns "10/13/2000"
+This kata was designed to use the built-in Date object. Dates can often be finicky, so while there are other methods to get the correct dates, I can't gurantee they will work.
